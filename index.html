@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Code QR</title>
+    <link rel="icon" type="image/x-icon" href="data:image/png;base64,...">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         html {
         box-sizing: border-box;
@@ -117,53 +127,124 @@
         color: #2C2C2C;
         padding-bottom: 60px;
     }
-    </style>
+    .hidden {
+            display: none;
+        }
+.url-input, #vcardInputs {
+            margin: 40px 0;
+        }
+        .input-group {
+        display: flex;
+        flex-direction: column;
+    }
 
+    #vcardInputs input {
+        margin-bottom: 20px;
+    }
+    #vcardInputs label {
+        margin-bottom: 10px;
+    }
+    </style>
 </head>
 <body>
-
-
     <header>
         <a class="logo" href="https://x-g.ca">/xavier<br>godbout</a>
     </header>
-
     <div class="flex-end">
         <h1>Générateur de Code QR</h1>
-
-        <div class="inputWrapper">
-            <label for="url">URL</label>
-            <input type="text" name="url" id="urlInput" placeholder="https://www.x-g.ca">
+        <div>
+            <button class="button" onclick="setType('url')">URL</button>
+            <button class="button" onclick="setType('vcard')">vCard</button>
         </div>
-
+        <div class="url-input">
+            <label for="urlInput">URL:</label>
+            <input type="text" id="urlInput" class="full-width" placeholder="https://www.x-g.ca">
+        </div>
+        <div id="vcardInputs" class="hidden">
+            <div class="input-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName">
+            </div>
+            <div class="input-group">
+                <label for="mobile">Mobile:</label>
+                <input type="text" id="mobile" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="company">Company:</label>
+                <input type="text" id="company">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" id="jobTitle">
+            </div>
+            <div class="input-group">
+                <label for="street">Street:</label>
+                <input type="text" id="street" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="zip">ZIP Code:</label>
+                <input type="text" id="zip" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="state">Province/State:</label>
+                <input type="text" id="state" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="website">Website:</label>
+                <input type="text" id="website" class="full-width">
+            </div>
+        </div>
         <div id="qrcode"></div>
-
         <div class="downloadWrapper">
             <button class="button qr-svg-download" onclick="downloadSVG()"><svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 12.5263H12V14H0V12.5263ZM6.66667 8.232L10.714 3.75789L11.6567 4.79979L6 11.0526L0.343333 4.80053L1.286 3.75789L5.33333 8.23053V0H6.66667V8.232Z" fill="white"/>
                 </svg>SVG</button>
         </div>
     </div>
-
     <footer>
         <a href="x-g.ca" class="logo_footer">/xavier<br>godbout</a>
         <p>© Copyright 2024, Godbout Corporation</p>
     </footer>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/qrcode-svg"></script>
     <script>
-        document.getElementById('urlInput').addEventListener('input', function() {
-            generateQRCode();
-        });
-
-        function generateQRCode() {
-            var url = document.getElementById('urlInput').value;
-            if (url.trim() === '') {
-                url = 'https://x-g.ca'; // Default URL for placeholder
+        let currentType = 'url'; // Default type
+    
+        function setType(type) {
+            currentType = type;
+            const urlInput = document.querySelector('.url-input');
+            const vcardInputs = document.getElementById('vcardInputs');
+            if (type === 'vcard') {
+                vcardInputs.classList.remove('hidden');
+                urlInput.classList.add('hidden');
+            } else {
+                vcardInputs.classList.add('hidden');
+                urlInput.classList.remove('hidden');
             }
-            var qr = new QRCode({
-                content: url,
+            generateQRCode();
+        }
+    
+        function generateQRCode() {
+            let content;
+            if (currentType === 'url') {
+                let url = document.getElementById('urlInput').value;
+                content = url.trim() ? url : 'https://x-g.ca';
+            } else {
+                content = buildVCard();
+            }
+            let qr = new QRCode({
+                content: content,
                 padding: 4,
                 width: 256,
                 height: 256,
@@ -173,23 +254,67 @@
             });
             document.getElementById('qrcode').innerHTML = qr.svg();
         }
-
-        function downloadSVG() {
-            var svg = document.getElementById('qrcode').innerHTML;
-            var svgBlob = new Blob([svg], {type:"image/svg+xml;charset=utf-8"});
-            var svgUrl = URL.createObjectURL(svgBlob);
-            var downloadLink = document.createElement("a");
-            var url = document.getElementById('urlInput').value || 'x-g.ca';
-            var filename = url.replace(/^https?:\/\//, '').replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50) + ".svg"; // Creating a valid filename
-            downloadLink.href = svgUrl;
-            downloadLink.download = filename;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+    
+        function buildVCard() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const mobile = document.getElementById('mobile').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const street = document.getElementById('street').value;
+            const city = document.getElementById('city').value;
+            const zip = document.getElementById('zip').value;
+            const state = document.getElementById('state').value;
+            const country = document.getElementById('country').value;
+            const website = document.getElementById('website').value;
+    
+            return `BEGIN:VCARD\nVERSION:3.0\nN:${lastName};${firstName};;;\nFN:${firstName} ${lastName}\nORG:${company}\nTITLE:${jobTitle}\nTEL;TYPE=CELL:${mobile}\nEMAIL:${email}\nADR;TYPE=WORK:;;${street};${city};${state};${zip};${country}\nURL:${website}\nEND:VCARD`;
         }
 
-        // Generate default QR code on initial load
-        window.onload = generateQRCode;
+        function downloadSVG() {
+            const svgElement = document.getElementById('qrcode').querySelector('svg');
+            if (!svgElement) return; // Ensure there is an SVG to download
+
+            let filename = '';
+            if (currentType === 'url') {
+                let url = document.getElementById('urlInput').value.trim();
+                if (url) {
+                    const urlObject = new URL(url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`);
+                    filename = urlObject.hostname.replace(/\./g, '_'); // Replace dots with underscores
+                }
+                filename = filename || 'default'; // Fallback to 'default' if URL is empty or invalid
+            } else {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                filename = `${firstName}_${lastName}` || 'vCard_default'; // Use first name and last name, fallback to 'vCard_default'
+            }
+
+            downloadAsSVG(svgElement.outerHTML, filename + '.svg');
+        }
+
+
+        function downloadAsSVG(svgData, filename) {
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+    
+        // Add event listeners
+        document.getElementById('urlInput').addEventListener('input', generateQRCode);
+        Array.from(document.querySelectorAll('#vcardInputs input')).forEach(input => {
+            input.addEventListener('input', generateQRCode);
+        });
+    
+        window.onload = () => setType('url'); // Set default to URL type
     </script>
+    
 </body>
 </html>
