@@ -9,11 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        html {
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        }
         *, *:before, *:after {
         box-sizing: inherit;
         }
@@ -25,17 +20,38 @@
         color: #fff;
         }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Azeret Mono', monospace;
             font-size: 16px;
             background-color: #1E1E1E;
             color: #fff;
-            position: relative;
-            height: calc(100dvh - 80px);
+            display: flex;
+            flex-direction: column;
             width: 100%;
             max-width: 1200px;
-            margin: 80px 0 0 0;
-            padding: 0px 40px;
+            margin: 0 auto;
+            padding: 80px 40px 20px;
+        }
+
+        .content {
+            flex: 1 0 auto;
+        }
+
+
+        .logo svg {
+            fill: #2C2C2C;
+            transition: all .3s ease-in-out;
+        }
+
+        .logo:hover svg {
+            fill: #fff;
         }
         .flex-end {
             display: flex;
@@ -50,14 +66,11 @@
             align-items: center;
             justify-content: center;
         }
-        .logo {
-            color: #fff;
-            text-decoration: none;
-        }
         h1 {
-            font-weight: 400;
+            font-weight: 700;
             font-size: 32px;
-            margin: 80px 0 40px 0;
+            margin: 40px 0 40px 0;
+            text-align: center;
         }
 
         input {
@@ -92,6 +105,7 @@
         background-color: #2C2C2C;
         font-family: 'Azeret Mono', monospace;
         font-size: 16px;
+        font-weight: 500;
         color: #fff;
         text-decoration: none;
           display: inline-block;
@@ -102,31 +116,43 @@
           transition: all 0.3s ease-in-out; /* Ensures smooth transition for background and borders */
           border-radius: 10px;
       }
+      .qr-svg-download {
+        background-color: #D2EE3A;
+            color: #1E1E1E;
+          margin-bottom: 40px;
+      }
+      .qr-svg-download:hover{
+        border: 2px solid #5e6d09;
+            transform: translateY(2px);
+      }
       .button:hover { border: 2px solid #444444; }
 
-      svg{
-        margin-right: 10px;
-      }
+      button svg, .button svg{
+            margin-right: 10px;
+            fill: #5e6d09;
+            transition: all .3s ease-in-out;
+        }
 
       footer {
-        border-top: #2C2C2C 1px solid;
-        margin-top: 20vh;
-        padding-top: 10px;
-        max-width: 1200px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 12px;
+            flex-shrink: 0;
+            border-top: #444444 1px solid;
+            padding-top: 10px;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .logo_footer svg {
+        fill: #2C2C2C;
+        width: 40px;
     }
 
-    .logo_footer {
-        color: #2C2C2C;
-        text-decoration: none;
-    }
-
-    footer p {
-        color: #2C2C2C;
-        padding-bottom: 60px;
-    }
+        footer p {
+            color: #444444;
+            margin: 0;
+        }
     .hidden {
             display: none;
         }
@@ -147,79 +173,89 @@
     </style>
 </head>
 <body>
-    <header>
-        <a class="logo" href="https://x-g.ca">/xavier<br>godbout</a>
-    </header>
-    <div class="flex-end">
-        <h1>Générateur de Code QR</h1>
-        <div>
-            <button class="button" onclick="setType('url')">URL</button>
-            <button class="button" onclick="setType('vcard')">vCard</button>
+    <div class="content">
+        <header>
+            <a class="logo" href="https://x-g.ca"><svg width="117" height="43" viewBox="0 0 117 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M31.5588 0H39.3621L27.8032 37.8796H20L31.5588 0ZM108.823 7.41211V11.5891C106.319 8.14923 101.938 6.59308 96.8047 6.59308C89.5857 6.59308 82.3667 10.033 82.3667 19.2879C82.3667 28.5428 89.5857 31.9827 96.8047 31.9827C101.938 31.9827 106.319 30.4266 108.823 26.9867V28.8295C108.823 34.235 105.776 36.0369 99.5171 36.0369C94.76 36.0369 90.1282 35.2588 85.1626 34.2759L84.2444 40.3367C88.7095 41.3605 94.5098 42.3842 101.228 42.3842C111.493 42.3842 116.793 38.4939 116.834 28.9933V7.41211H108.823ZM108.823 19.2879C108.823 23.1373 106.027 25.3486 99.8093 25.3486C93.5918 25.3486 90.7959 23.1373 90.7959 19.2879C90.7959 15.4794 93.5918 13.2271 99.8093 13.2271C106.027 13.2271 108.823 15.4794 108.823 19.2879ZM44.4685 31.737H55.3596L63.2881 23.9153L71.2166 31.737H82.1077L68.5876 19.5745L82.1077 7.41211H71.2166L63.2881 15.2338L55.3596 7.41211H44.4685L57.9885 19.5745L44.4685 31.737ZM7.29492 26.3707L2.8208 22.3233L11.0527 22.3234V20.99H2.82227L7.29492 16.9427L6.2522 16L0 21.6567L6.25293 27.3134L7.29492 26.3707Z"/>
+                </svg></a>
+        </header>
+        <div class="flex-end">
+            <h1>Générateur de Code QR</h1>
+            <div>
+                <button class="button" onclick="setType('url')">URL</button>
+                <button class="button" onclick="setType('vcard')">vCard</button>
+            </div>
+            <div class="url-input">
+                <label for="urlInput">URL:</label>
+                <input type="text" id="urlInput" class="full-width" placeholder="https://www.metah.ca">
+            </div>
+        <div id="vcardInputs" class="hidden">
+        <div class="input-group">
+            <label for="firstName">Prénom :</label>
+            <input type="text" id="firstName">
+            <label for="lastName">Nom :</label>
+            <input type="text" id="lastName">
         </div>
-        <div class="url-input">
-            <label for="urlInput">URL:</label>
-            <input type="text" id="urlInput" class="full-width" placeholder="https://www.x-g.ca">
+        <div class="input-group">
+            <label for="mobile">Mobile :</label>
+            <input type="text" id="mobile" class="full-width">
         </div>
-<div id="vcardInputs" class="hidden">
-    <div class="input-group">
-        <label for="firstName">Prénom :</label>
-        <input type="text" id="firstName">
-        <label for="lastName">Nom :</label>
-        <input type="text" id="lastName">
-    </div>
-    <div class="input-group">
-        <label for="mobile">Mobile :</label>
-        <input type="text" id="mobile" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="email">Courriel :</label>
-        <input type="text" id="email" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="company">Entreprise :</label>
-        <input type="text" id="company">
-        <label for="jobTitle">Titre du poste :</label>
-        <input type="text" id="jobTitle">
-    </div>
-    <div class="input-group">
-        <label for="street">Rue :</label>
-        <input type="text" id="street" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="city">Ville :</label>
-        <input type="text" id="city" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="zip">Code postal :</label>
-        <input type="text" id="zip" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="state">Province/État :</label>
-        <input type="text" id="state" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="country">Pays :</label>
-        <input type="text" id="country" class="full-width">
-    </div>
-    <div class="input-group">
-        <label for="website">Site web :</label>
-        <input type="text" id="website" class="full-width">
-    </div>
-</div>
-
-        <div id="qrcode"></div>
-        <div class="downloadWrapper">
-            <button class="button qr-svg-download" onclick="downloadSVG()"><svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 12.5263H12V14H0V12.5263ZM6.66667 8.232L10.714 3.75789L11.6567 4.79979L6 11.0526L0.343333 4.80053L1.286 3.75789L5.33333 8.23053V0H6.66667V8.232Z" fill="white"/>
-                </svg>SVG</button>
+        <div class="input-group">
+            <label for="email">Courriel :</label>
+            <input type="text" id="email" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="company">Entreprise :</label>
+            <input type="text" id="company">
+            <label for="jobTitle">Titre du poste :</label>
+            <input type="text" id="jobTitle">
+        </div>
+        <div class="input-group">
+            <label for="street">Rue :</label>
+            <input type="text" id="street" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="city">Ville :</label>
+            <input type="text" id="city" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="zip">Code postal :</label>
+            <input type="text" id="zip" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="state">Province/État :</label>
+            <input type="text" id="state" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="country">Pays :</label>
+            <input type="text" id="country" class="full-width">
+        </div>
+        <div class="input-group">
+            <label for="website">Site web :</label>
+            <input type="text" id="website" class="full-width">
+        </div>
+        </div>
+            <div id="qrcode"></div>
+            <div class="downloadWrapper">
+                <button class="button qr-svg-download" onclick="downloadSVG()"><svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 12.5263H12V14H0V12.5263ZM6.66667 8.232L10.714 3.75789L11.6567 4.79979L6 11.0526L0.343333 4.80053L1.286 3.75789L5.33333 8.23053V0H6.66667V8.232Z"/>
+                    </svg>SVG</button>
+            </div>
         </div>
     </div>
     <footer>
-        <a href="x-g.ca" class="logo_footer">/xavier<br>godbout</a>
-        <p>© Copyright 2024, Godbout Corporation</p>
+        <a href="" class="logo_footer"><svg viewBox="0 0 97 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M88.8226 11.5891V7.4121H96.8345V28.9933C96.7928 38.4939 91.4932 42.3842 81.228 42.3842C74.5097 42.3842 68.7094 41.3605 64.2445 40.3367L65.1625 34.2759C70.1282 35.2588 74.7601 36.0368 79.5171 36.0368C85.7764 36.0368 88.8226 34.235 88.8226 28.8295V26.9867C86.3189 30.4266 81.9374 31.9827 76.8048 31.9827C69.5857 31.9827 62.3667 28.5428 62.3667 19.2879C62.3667 10.033 69.5857 6.59308 76.8048 6.59308C81.9374 6.59308 86.3189 8.14922 88.8226 11.5891ZM79.8092 25.3486C86.0268 25.3486 88.8226 23.1373 88.8226 19.2879C88.8226 15.4794 86.0268 13.2271 79.8092 13.2271C73.5917 13.2271 70.7959 15.4794 70.7959 19.2879C70.7959 23.1373 73.5917 25.3486 79.8092 25.3486Z"/>
+            <path d="M35.3597 31.737H24.4685L37.9886 19.5746L24.4685 7.41211H35.3597L43.2881 15.2337L51.2165 7.41211H62.1077L48.5876 19.5746L62.1077 31.737H51.2165L43.2881 23.9154L35.3597 31.737Z"/>
+            <path d="M11.5588 0H19.362L7.80324 37.8797H0L11.5588 0Z"/>
+            </svg>
+        </a>
+        <p>© Copyright <span id="currentYear"></span>, Xavier Godbout</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-svg"></script>
     <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
         let currentType = 'url'; // Default type
     
         function setType(type) {
@@ -240,7 +276,7 @@
             let content;
             if (currentType === 'url') {
                 let url = document.getElementById('urlInput').value;
-                content = url.trim() ? url : 'https://x-g.ca';
+                content = url.trim() ? url : 'https://metah.ca';
             } else {
                 content = buildVCard();
             }
