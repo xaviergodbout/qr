@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur Code QR</title>
+    <title>QR Code Generator</title>
     <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJdSURBVHgBxVfrkQFBEG7KfzIgBBkgAjJABIjAisBmgAjIABEgAjKwIpibr696a3Z2dvahyn5VfdvX8+iefs0g0lBKBZre6neAri10NzQT6u+C6kEAA96a6VA9iGCAohrRtAWNRqMwXS4XJvD7/T5eP5/PmR8OhzQajZifzWY8ZqPlsqrX6/HiLLxeL1Ysc7E5vqKo2+2yQb49YtjpCZHexJvCu92O553P58Lj0+lUOdSpls+45XJJ9/s9IZOTCzCOeaDJZMIynFwrZy8EQcCyx+Ph1OE1AJtfr1ffFIqiiOcg1p3OfzHhCyNOpxN9Pp/UIQobUAZyUgB5oMNAYRiyxyQRXWjSl+j3+6xMEg68jnfh9V97AO7GiSU3wJeB1wA74bLmmC42ax2JWMmA5/MZN5YspQLpA5ChP4gMITHn4X/pFQm4+kBRctU5GX1kMBjEMvQGF1J3QRG3C5CAUnooNZSkeAAEGfZbrVY8t91up/avlIRQig1tY3yAcWJsAlVCkNeqBZVCgOSDmw6HQ3yyxSL5Xsm7rLDevowKJyEglwlIL1RlkXdZmcgNgc8Al4upZBWkktDsZLhMbJj9AW6Vh4kJ6SNZ47khME9oe4CsPgCyPeAbT3ncpXS9XjN/u914IWTH49GrQCdrwuUiA5UKAVwm9Sq1bcrMzEbrleYjdY5x8GhCIJEBCEWqetQXyEoyVxVlPclSfcBMQjwycBo8LCCH9ea47Q3zMgJtNhtePx6P+dWEcWX/CrAtyksiqngZCeV64NfAkyyi+hDBgJDqw57/6ihs1e9/nq+h+w8Y/CW5FRF9IgAAAABJRU5ErkJggg==">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -180,7 +180,7 @@
                 </svg></a>
         </header>
         <div class="flex-end">
-            <h1>Générateur de Code QR</h1>
+            <h1>QR Code Generator</h1>
             <div>
                 <button class="button" onclick="setType('url')">URL</button>
                 <button class="button" onclick="setType('vcard')">vCard</button>
@@ -190,49 +190,50 @@
                 <input type="text" id="urlInput" class="full-width" placeholder="https://www.metah.ca">
             </div>
         <div id="vcardInputs" class="hidden">
-        <div class="input-group">
-            <label for="firstName">Prénom :</label>
-            <input type="text" id="firstName">
-            <label for="lastName">Nom :</label>
-            <input type="text" id="lastName">
-        </div>
-        <div class="input-group">
-            <label for="mobile">Mobile :</label>
-            <input type="text" id="mobile" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="email">Courriel :</label>
-            <input type="text" id="email" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="company">Entreprise :</label>
-            <input type="text" id="company">
-            <label for="jobTitle">Titre du poste :</label>
-            <input type="text" id="jobTitle">
-        </div>
-        <div class="input-group">
-            <label for="street">Rue :</label>
-            <input type="text" id="street" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="city">Ville :</label>
-            <input type="text" id="city" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="zip">Code postal :</label>
-            <input type="text" id="zip" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="state">Province/État :</label>
-            <input type="text" id="state" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="country">Pays :</label>
-            <input type="text" id="country" class="full-width">
-        </div>
-        <div class="input-group">
-            <label for="website">Site web :</label>
-            <input type="text" id="website" class="full-width">
+            <div class="input-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName">
+            </div>
+            <div class="input-group">
+                <label for="mobile">Mobile:</label>
+                <input type="text" id="mobile" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="company">Company:</label>
+                <input type="text" id="company">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" id="jobTitle">
+            </div>
+            <div class="input-group">
+                <label for="street">Street:</label>
+                <input type="text" id="street" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="zip">Postal Code:</label>
+                <input type="text" id="zip" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="state">State/Province:</label>
+                <input type="text" id="state" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" class="full-width">
+            </div>
+            <div class="input-group">
+                <label for="website">Website:</label>
+                <input type="text" id="website" class="full-width">
+            </div>            
         </div>
         </div>
             <div id="qrcode"></div>
